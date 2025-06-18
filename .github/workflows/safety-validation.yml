@@ -1,0 +1,164 @@
+name: 🛡️ Safety Validation CI
+
+on:
+  push:
+    branches: [ main, develop, master ]
+  pull_request:
+    branches: [ main, develop, master ]
+  workflow_dispatch:
+
+jobs:
+  safety-validation:
+    name: 🛡️ Safety Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+    
+    - name: ☕ Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    
+    - name: 🔐 Make Safety Scripts Executable
+      run: |
+        chmod +x scripts/safety-lint.sh
+        chmod +x scripts/safety-validate.sh
+        ls -la scripts/
+    
+    - name: 🔍 Run Basic Safety Linting
+      run: |
+        echo "🛡️ Running basic safety linting..."
+        ./scripts/safety-lint.sh
+    
+    - name: 🔍 Run Comprehensive Safety Validation
+      run: |
+        echo "🛡️ Running comprehensive safety validation..."
+        ./scripts/safety-validate.sh
+    
+    - name: 📋 Upload Safety Report (on failure)
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: safety-validation-report
+        path: |
+          target/safety-reports/
+          scripts/
+        retention-days: 30
+    
+    - name: ✅ Safety Validation Success
+      if: success()
+      run: |
+        echo "🎉 All safety validations passed!"
+        echo "🛡️ Feature files are SAFE for execution."
+
+  build-and-test:
+    name: 🧪 Build and Test (Safety-First)
+    runs-on: ubuntu-latest
+    needs: safety-validation
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+    
+    - name: ☕ Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    
+    - name: 🔧 Prepare Scripts
+      run: |
+        chmod +x scripts/*.sh
+        chmod +x scripts/*.bat || true
+    
+    - name: 🛡️ Maven Build with Safety Validation
+      run: |
+        echo "🛡️ Building with safety-first profile..."
+        mvn clean compile test-compile -Psafe-testing
+    
+    - name: 🧪 Run Tests (Safety Context Only)
+      run: |
+        echo "🧪 Running tests with safety validation enabled..."
+        mvn test -Psafety-validation -Dmaven.test.failure.ignore=true
+    
+    - name: 📊 Upload Test Reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-reports
+        path: |
+          target/surefire-reports/
+          target/cucumber-reports/
+          target/reports/
+        retention-days: 30
+    
+    - name: 📊 Upload Screenshots (on test failure)
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-screenshots
+        path: |
+          target/screenshots/
+          target/debug/
+        retention-days: 30
+
+  security-scan:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+    needs: safety-validation
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+    
+    - name: ☕ Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    
+    - name: 🔒 Run OWASP Dependency Check
+      run: |
+        mvn org.owasp:dependency-check-maven:check
+    
+    - name: 📋 Upload Security Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: security-report
+        path: target/dependency-check-report.html
+        retention-days: 30
+
+  notify-results:
+    name: 📢 Notify Results
+    runs-on: ubuntu-latest
+    needs: [safety-validation, build-and-test, security-scan]
+    if: always()
+    
+    steps:
+    - name: 📢 Safety Validation Results
+      run: |
+        if [[ "${{ needs.safety-validation.result }}" == "success" ]]; then
+          echo "✅ Safety validation PASSED - All feature files are safe!"
+        else
+          echo "❌ Safety validation FAILED - Dangerous operations detected!"
+          echo "🚨 CRITICAL: Do not merge until safety issues are resolved!"
+        fi
+        
+        if [[ "${{ needs.build-and-test.result }}" == "success" ]]; then
+          echo "✅ Build and tests PASSED"
+        else
+          echo "❌ Build or tests FAILED"
+        fi
+        
+        if [[ "${{ needs.security-scan.result }}" == "success" ]]; then
+          echo "✅ Security scan PASSED"
+        else
+          echo "⚠️ Security scan found issues"
+        fi

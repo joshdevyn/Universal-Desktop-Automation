@@ -1,0 +1,65 @@
+calculator:
+  buttons:
+    number_0: "calc_number_0.png"
+    number_1: "calc_number_1.png"
+    number_2: "calc_number_2.png"
+    number_3: "calc_number_3.png"
+    number_4: "calc_number_4.png"
+    number_5: "calc_number_5.png"
+    number_6: "calc_number_6.png"
+    number_7: "calc_number_7.png"
+    number_8: "calc_number_8.png"
+    number_9: "calc_number_9.png"
+    plus: "calc_plus.png"
+    minus: "calc_minus.png"
+    multiply: "calc_multiply.png"
+    divide: "calc_divide.png"
+    equals: "calc_equals.png"
+    clear: "calc_clear.png"
+    ms: "calc_ms.png"
+    mr: "calc_mr.png"
+  regions:
+    display: {x: 50, y: 50, width: 200, height: 50}
+    number_pad: {x: 50, y: 150, width: 200, height: 200}
+  test_cases:
+    - operation: "2+3"
+      expected: "5"
+    - operation: "10*5"
+      expected: "50"
+    - operation: "100/4"
+      expected: "25"
+
+sap:
+  transactions:
+    va01: "Create Sales Order"
+    va02: "Change Sales Order"
+    va03: "Display Sales Order"
+    mm01: "Create Material Master"
+    mm02: "Change Material Master"
+    mm03: "Display Material Master"
+  screens:
+    login: "sap_login_screen.png"
+    easy_access: "sap_easy_access.png"
+    va01_initial: "sap_va01_screen.png"
+  test_data:
+    customer: "CUSTOMER001"
+    material: "MAT001"
+    quantity: "10"
+    order_type: "Standard Order"
+
+mainframe:
+  screens:
+    login: "mainframe_login.png"
+    main_menu: "mainframe_main_menu.png"
+    customer_inquiry: "mainframe_customer.png"
+  function_keys:
+    f3: "Exit"
+    f4: "Prompt"
+    f7: "Page Up"
+    f8: "Page Down"
+    f12: "Cancel"
+  test_data:
+    userid: "USERID"
+    password: "PASSWORD"
+    customer_id: "CUST001"
+    customer_name: "JOHN SMITH"

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Universal Desktop Automation Production Test Suite" verbose="1" parallel="false">
+    
+    <listeners>
+        <!-- Add custom listeners here if needed -->
+    </listeners>
+    
+    <!-- Global parameters -->
+    <parameter name="environment" value="production"/>
+    <parameter name="timeout" value="30"/>
+    <parameter name="screenshot.on.failure" value="true"/>
+    
+    <!-- Framework Validation Tests -->
+    <test name="Framework Validation" preserve-order="true" enabled="true">
+        <classes>
+            <class name="com.automation.tests.BaseAutomationTest"/>
+            <class name="com.automation.tests.SimpleFrameworkTest"/>
+            <class name="com.automation.tests.WindowControllerTest"/>
+            <class name="com.automation.tests.OCREngineTest"/>
+        </classes>
+    </test>
+    
+    <!-- Production Application Tests -->
+    <test name="Calculator Production Tests" preserve-order="true" enabled="true">
+        <classes>
+            <class name="com.automation.tests.CalculatorTest">
+                <methods>
+                    <include name="testCalculatorAddition"/>
+                    <include name="testCalculatorSubtraction"/>
+                    <include name="testCalculatorMultiplication"/>
+                    <include name="testCalculatorDivision"/>
+                    <include name="testCalculatorMemoryFunctions"/>
+                    <include name="testCalculatorDivisionByZero"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <test name="Notepad Production Tests" preserve-order="true" enabled="true">
+        <classes>
+            <class name="com.automation.tests.NotepadTest">
+                <methods>
+                    <include name="testNotepadTextInputAndEditing"/>
+                    <include name="testNotepadFileSaveAs"/>
+                    <include name="testNotepadMenuOperations"/>
+                    <include name="testNotepadFindAndReplace"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <test name="Paint Production Tests" preserve-order="true" enabled="true">
+        <classes>
+            <class name="com.automation.tests.PaintTest">
+                <methods>
+                    <include name="testPaintToolSelectionAndDrawing"/>
+                    <include name="testPaintTextTool"/>
+                    <include name="testPaintFileOperations"/>
+                    <include name="testPaintColorSelection"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- Comprehensive Production Suite -->
+    <test name="Production Test Suite" preserve-order="true" enabled="true">
+        <classes>
+            <class name="com.automation.tests.ProductionTestSuite">
+                <methods>
+                    <include name="testCalculatorApplication"/>
+                    <include name="testNotepadApplication"/>
+                    <include name="testPaintApplication"/>
+                    <include name="testCrossApplicationWorkflow"/>
+                    <include name="testFrameworkPerformanceAndReliability"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- Integration Tests -->
+    <test name="Integration Tests" preserve-order="true" enabled="true">
+        <classes>
+            <class name="com.automation.tests.IntegrationTest"/>
+            <class name="com.automation.tests.GenericWindowTestSimple"/>
+        </classes>
+    </test>
+    
+</suite>

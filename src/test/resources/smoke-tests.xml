@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Smoke Test Suite" verbose="1">
+    
+    <!-- Quick smoke tests to verify framework is working -->
+    <test name="Smoke Tests">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.automation.tests.SimpleFrameworkTest"/>
+            <class name="com.automation.tests.BaseAutomationTest">
+                <methods>
+                    <include name="testFrameworkInitialization"/>
+                    <include name="testScreenshotCapture"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>

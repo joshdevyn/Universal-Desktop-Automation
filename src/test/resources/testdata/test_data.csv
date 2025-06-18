@@ -1,0 +1,11 @@
+testCase,testSuite,application,username,password,expectedResult
+TC001,LoginTests,Calculator,N/A,N/A,Calculator opens successfully
+TC002,LoginTests,SAP,SAPUSER,PASSWORD123,SAP Easy Access screen
+TC003,LoginTests,Mainframe,USERID,PASSWORD,Main Menu displayed
+TC004,CalculationTests,Calculator,N/A,N/A,2+3=5
+TC005,CalculationTests,Calculator,N/A,N/A,10*5=50
+TC006,TransactionTests,SAP,SAPUSER,PASSWORD123,VA01 transaction opens
+TC007,TransactionTests,SAP,SAPUSER,PASSWORD123,MM01 transaction opens
+TC008,DataEntryTests,Mainframe,USERID,PASSWORD,Customer data entry successful
+TC009,DataEntryTests,SAP,SAPUSER,PASSWORD123,Material master created
+TC010,ValidationTests,Calculator,N/A,N/A,Display shows correct result

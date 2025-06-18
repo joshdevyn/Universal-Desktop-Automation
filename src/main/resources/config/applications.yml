@@ -1,0 +1,80 @@
+---
+applications:
+  calculator:
+    images:
+      button_2: "calculator_button_2.png"
+      button_1: "calculator_button_1.png"
+      button_plus: "calculator_button_plus.png"
+      button_equals: "calculator_button_equals.png"
+    regions:
+      display_area:
+        x: 50
+        width: 300
+        "y": 50
+        height: 100
+    process_name: "Calculator.exe"
+    executable_path: "calc.exe"
+    window_title: "Calculator"
+    launch_timeout: 30
+  excel_mock:
+    process_name: "excel_mock.exe"
+    executable_path: "mock_excel.exe"
+    window_title: "Microsoft Excel - Mock"
+    launch_timeout: 30
+  sap_gui_mock:
+    process_name: "sap_gui_mock.exe"
+    executable_path: "mock_sap_gui.exe"
+    window_title: "SAP GUI - Mock"
+    launch_timeout: 60
+  tandem_terminal:
+    credentials:
+      password: "testpass"
+      username: "testuser"
+    process_name: "tandem_terminal_mock.exe"
+    key_mappings:
+      TAB: "9"
+      F12: "123"
+      ENTER: "13"
+      F1: "112"
+      F3: "114"
+      CLEAR_LINE: "27"
+      ESCAPE: "27"
+    executable_path: "mock_tandem_terminal.exe"
+    window_title: "Tandem Terminal"
+    logout_command: "LOGOFF"
+    launch_timeout: 30
+    wait_times:
+      function_key_wait: 1
+      login_prompt_wait: 3
+      login_process_wait: 5
+      command_execution_wait: 2
+      logout_wait: 3
+  notepad:
+    regions:
+      text_area:
+        x: 10
+        width: 500
+        "y": 30
+        height: 400
+    process_name: "notepad.exe"
+    executable_path: "notepad.exe"
+    window_title: "Untitled - Notepad"
+    launch_timeout: 20
+  oracle_forms_mock:
+    process_name: "oracle_forms_mock.exe"
+    executable_path: "mock_oracle_forms.exe"
+    window_title: "Oracle Forms - Mock"
+    launch_timeout: 45
+  as400_terminal_mock:
+    process_name: "as400_terminal_mock.exe"
+    executable_path: "mock_as400_terminal.exe"
+    window_title: "AS400 Terminal - Mock"
+    launch_timeout: 30
+  file_explorer:
+    process_name: "explorer.exe"
+    executable_path: "explorer.exe"
+    window_title: "File Explorer"
+    launch_timeout: 30
+    multi_window_support: true
+    launch_args: ""
+    description: "Windows File Explorer - supports multiple windows per process"

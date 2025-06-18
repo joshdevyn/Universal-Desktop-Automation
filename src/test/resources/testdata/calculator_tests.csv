@@ -1,0 +1,13 @@
+testCase,operation,input1,input2,expected
+TC001,addition,2,3,5
+TC002,addition,12,8,20
+TC003,addition,100,50,150
+TC004,subtraction,10,4,6
+TC005,subtraction,25,9,16
+TC006,subtraction,100,25,75
+TC007,multiplication,7,8,56
+TC008,multiplication,6,7,42
+TC009,multiplication,12,5,60
+TC010,division,15,3,5
+TC011,division,24,4,6
+TC012,division,100,10,10

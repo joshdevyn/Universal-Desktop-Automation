@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Universal Desktop Automation Test Suite" verbose="1" parallel="false">
+    
+    <!-- Smoke Test Suite - Quick validation -->
+    <test name="Smoke Tests" enabled="true">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.automation.tests.BaseAutomationTest"/>
+            <class name="com.automation.tests.WindowControllerTest"/>
+        </classes>
+    </test>
+    
+    <!-- Core Framework Tests -->
+    <test name="Core Framework Tests" enabled="true">
+        <classes>
+            <class name="com.automation.tests.BaseAutomationTest"/>
+            <class name="com.automation.tests.WindowControllerTest"/>
+            <class name="com.automation.tests.ImageMatcherTest"/>
+            <class name="com.automation.tests.OCREngineTest"/>
+        </classes>
+    </test>
+    
+    <!-- Application Tests -->
+    <test name="Application Tests" enabled="true">
+        <classes>
+            <class name="com.automation.tests.CalculatorTest"/>
+            <class name="com.automation.tests.GenericWindowTest">
+                <parameter name="windowTitle" value="Calculator"/>
+                <parameter name="windowClass" value=""/>
+                <parameter name="executablePath" value="calc.exe"/>
+            </class>
+        </classes>
+    </test>
+    
+    <!-- Enterprise Application Tests -->
+    <test name="Enterprise Application Tests" enabled="false">
+        <classes>
+            <class name="com.automation.tests.SAPGUITest"/>
+            <class name="com.automation.tests.MainframeTerminalTest"/>
+        </classes>
+    </test>
+    
+    <!-- Regression Test Suite -->
+    <test name="Regression Tests" enabled="true">
+        <groups>
+            <run>
+                <include name="regression"/>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.automation.tests.*"/>
+        </packages>
+    </test>
+
+</suite>
